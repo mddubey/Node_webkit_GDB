@@ -9,9 +9,9 @@ p{
 
 div{
 	background-color: #dddddd;
-	margin: 10;
-	border: 2 solid gray;
-	height: 550;
+	margin: 8;
+	/*border: 2 solid gray;*/
+	height: 530;
 	float: left;
 }
 
@@ -21,4 +21,32 @@ div{
 }
 #output{
 	width: 700;
+	padding: 5;
+}
+
+textarea{
+	width: 690;
+	height: 525;
+	font-size: 125%;
+	text-align: justify;
+}
+
+.option{
+	width: 85;
+	height: 30;
+	background-color: #eeeeee;
+	margin: 4;
+}
+
+input[type="button"]{
+	margin: 2;
+	width: 75;
+	height: 25;
+}
+
+.option_text{
+	padding: 5;
+	width: 170;
+	height: 50;
+	background-color: #eeeeee;
 }

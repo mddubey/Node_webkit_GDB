@@ -14,7 +14,8 @@ function startDebug (fileName) {
 												// register one or more handlers
 	gdb.stdout.setEncoding('utf-8');												
 	gdb.stdout.on('data', function (data) {
-	  	$('#paragraph')[0].textContent = $('#paragraph')[0].textContent.concat(data + '\n');
+		data = data + '-------------\n';
+	  	$('#paragraph')[0].value = $('#paragraph')[0].value.concat(data);
 	});
 	gdb.stderr.on('data', function (data) {
 	  console.log('stderr: ' + data);
@@ -26,3 +27,13 @@ function startDebug (fileName) {
 function showList(){
 	gdb.stdin.write('list'+'\n');
 };
+
+function insertBreakPoint(){
+	var funcNm = $('#funcNm')[0].value;
+	console.log(funcNm);
+	gdb.stdin.write('break ' + funcNm + '\n');
+}
+
+function run(){
+	gdb.stdin.write('run' + '\n');
+}

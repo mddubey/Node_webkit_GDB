@@ -50,3 +50,12 @@ input[type="button"]{
 	height: 50;
 	background-color: #eeeeee;
 }
+
+#errorMsg{
+	height: 0;
+	font-size: 125%;
+	background-color: orange;
+}
+#ok{
+	float: left;
+}

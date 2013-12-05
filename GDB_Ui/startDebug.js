@@ -18,7 +18,11 @@ function startDebug (fileName) {
 	  	$('#paragraph')[0].value = $('#paragraph')[0].value.concat(data);
 	});
 	gdb.stderr.on('data', function (data) {
-	  console.log('stderr: ' + data);
+	  // console.log('stderr: ' + data);
+	/*border: 2 solid gray;*/
+	  $('#paragraph')[0].style.height = "450";
+	  $('#errorMsg')[0].style.height = "70";
+	  $('#errorMsg')[0].textContent = data;
 	});
 	gdb.on('exit', function (code) {
 	});
@@ -43,4 +47,10 @@ function performStep(){
 
 function next(){
 	gdb.stdin.write('next' + '\n');
+}
+
+function reset(){
+	$('#paragraph')[0].style.height = "525";
+	$('#errorMsg')[0].style.height = "0";
+	$('#errorMsg')[0].textContent = "";
 }

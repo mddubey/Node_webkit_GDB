@@ -30,10 +30,17 @@ function showList(){
 
 function insertBreakPoint(){
 	var funcNm = $('#funcNm')[0].value;
-	console.log(funcNm);
 	gdb.stdin.write('break ' + funcNm + '\n');
 }
 
 function run(){
 	gdb.stdin.write('run' + '\n');
+}
+
+function performStep(){
+	gdb.stdin.write('step' + '\n');
+}
+
+function next(){
+	gdb.stdin.write('next' + '\n');
 }

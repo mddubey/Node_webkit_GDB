@@ -10,7 +10,6 @@ p{
 div{
 	background-color: #dddddd;
 	margin: 8;
-	/*border: 2 solid gray;*/
 	height: 530;
 	float: left;
 }
@@ -21,7 +20,8 @@ div{
 }
 #output{
 	width: 700;
-	padding: 5;
+	padding-left: 5;
+	padding-top: 3;
 }
 
 textarea{

@@ -6,3 +6,19 @@ p{
 	text-align: justify;
 	font-size: 200%;
 }
+
+div{
+	background-color: #dddddd;
+	margin: 10;
+	border: 2 solid gray;
+	height: 550;
+	float: left;
+}
+
+#commands{
+	width: 200;
+	text-align: center;
+}
+#output{
+	width: 700;
+}

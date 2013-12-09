@@ -16,6 +16,7 @@ function startDebug (fileName) {
 	gdb.stdout.on('data', function (data) {
 		data = data + '-------------\n';
 	  	$('#paragraph')[0].value = $('#paragraph')[0].value.concat(data);
+	  	$('#paragraph').scrollTop($('#paragraph')[0].scrollHeight);
 	});
 	gdb.stderr.on('data', function (data) {
 	  $('#paragraph')[0].style.height = "450";

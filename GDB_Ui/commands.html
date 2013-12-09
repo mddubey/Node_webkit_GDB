@@ -8,31 +8,34 @@
 <body>
 	<div id = "commands">
 		<div class = "option">
-			<input type = "button" value = "List" onClick = "_list()">
+			<input type = "button" class = "simp_btn" value = "List" onClick = "_list()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Run" onClick = "_run()">
+			<input type = "button" class = "simp_btn" value = "Run" onClick = "_run()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Step" onClick = "_step()">
+			<input type = "button" class = "simp_btn" value = "Step" onClick = "_step()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Next" onClick = "_next()">
+			<input type = "button" class = "simp_btn" value = "Next" onClick = "_next()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Continue" onClick = "_continue()">
+			<input type = "button" class = "simp_btn" value = "Continue" onClick = "_continue()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Finish" onClick = "_finish()">
+			<input type = "button" class = "simp_btn" value = "Finish" onClick = "_finish()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Up" onClick = "_up()">
+			<input type = "button" class = "simp_btn" value = "Up" onClick = "_up()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Down" onClick = "_down()">
+			<input type = "button" class = "simp_btn" value = "Down" onClick = "_down()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Quit" onClick = "_quit()">
+			<input type = "button" class = "simp_btn" value = "Quit" onClick = "_quit()">
+		</div>
+		<div class = "option">
+			<input type = "button" class = "simp_btn" value = "BackTrace" onClick = "_backtrace()">
 		</div>
 
 	</div>
@@ -49,19 +52,19 @@
 	<div id = "command_text">
 		<div class = "option_text">
 			<input type="text" id="funcNm" placeholder="Function Name or line Number">
-			<input type = "button" value = "Break" onClick = "_break()">
+			<input type = "button" class = "text_btn" value = "Break" onClick = "_break()">
 		</div>
 		<div class = "option_text">
 			<input type="text" id="varNm" placeholder="Variable Name">
-			<input type = "button" value = "Print" onClick = "_printVal()">
+			<input type = "button" class = "text_btn" value = "Print" onClick = "_printVal()">
 		</div>
 		<div class = "option_text">
 			<input type="text" id="varNmWatch" placeholder="Variable Name">
-			<input type = "button" value = "Watch" onClick = "_watchVal()">
+			<input type = "button" class = "text_btn" value = "Watch" onClick = "_watchVal()">
 		</div>
 		<div class = "option_text">
 			<input type="text" id="info" placeholder="Information About">
-			<input type = "button" value = "Info" onClick = "_getInfo()">
+			<input type = "button" class = "text_btn" value = "Info" onClick = "_getInfo()">
 		</div>
 	</div>
 

@@ -88,6 +88,10 @@ function _down(){
 	gdb.stdin.write('down' + '\n');
 }
 
+function _backtrace(){
+	gdb.stdin.write('backtrace' + '\n');
+}
+
 function _quit(){
 	gdb.stdin.write('quit' + '\n');
 	gdb.stdin.end();

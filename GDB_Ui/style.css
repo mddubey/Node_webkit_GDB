@@ -59,3 +59,7 @@ input[type="button"]{
 #ok{
 	float: left;
 }
+
+#errorBtn{
+	height: 0;
+}

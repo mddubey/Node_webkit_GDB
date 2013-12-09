@@ -58,8 +58,16 @@ input[type="button"]{
 }
 #ok{
 	float: left;
+	height: 0;
 }
 
 #errorBtn{
 	height: 0;
+}
+
+#command_text{
+	height: 130;
+	width: 920;
+	text-align: center;
+	margin-top: 0;
 }

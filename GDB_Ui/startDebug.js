@@ -1,8 +1,10 @@
+var fs = require('fs');
+var gui = require('nw.gui');
 function openDebugWindow(){
     var fileName = $('#exeFile')[0].value;
     fileName = fileName.replace(/\\/g,'/');
     console.log(fileName);
-	var nextPageContent = require('fs').readFileSync('commands.html','utf-8');
+	var nextPageContent = fs.readFileSync('commands.html','utf-8');
 	document.write(nextPageContent);
 	startDebug(fileName);
 }
@@ -23,21 +25,40 @@ function startDebug (fileName) {
 	  $('#paragraph')[0].style.height = "450";
 	  $('#errorMsg')[0].style.height = "70";
 	  $('#errorBtn')[0].style.height = "70";
+	  $('#ok')[0].style.height = "25";
 	  $('#errorMsg')[0].textContent = data;
 	});
 	gdb.on('exit', function (code) {
 	});
 }
 
-function _list(){
-	gdb.stdin.write('list'+'\n');
-};
-
 function _break(){
 	var funcNm = $('#funcNm')[0].value;
 	gdb.stdin.write('break ' + funcNm + '\n');
 	$('#funcNm')[0].value = '';
 }
+
+function _printVal(){
+	var variableNm = $('#varNm')[0].value;
+	gdb.stdin.write('print ' + variableNm + '\n');
+	$('#varNm')[0].value = '';
+}
+
+function _watchVal(){
+	var variableNm = $('#varNmWatch')[0].value;
+	gdb.stdin.write('watch ' + variableNm + '\n');
+	$('#varNmWatch')[0].value = '';
+}
+
+function _getInfo(){
+	var variableNm = $('#info')[0].value;
+	gdb.stdin.write('info ' + variableNm + '\n');
+	$('#info')[0].value = '';
+}
+
+function _list(){
+	gdb.stdin.write('list'+'\n');
+};
 
 function _run(){
 	gdb.stdin.write('run' + '\n');
@@ -67,9 +88,25 @@ function _down(){
 	gdb.stdin.write('down' + '\n');
 }
 
+function _quit(){
+	gdb.stdin.write('quit' + '\n');
+	gdb.stdin.end();
+	var win = gui.Window.get();;
+	win.on('close', function() {
+  		this.hide(); // Pretend to be closed already
+		this.close(true);
+	});
+
+	win.close();
+	gui.Window.get(
+  		window.open('index.html')
+	);
+}
+
 function _reset(){
 	$('#paragraph')[0].style.height = "525";
 	$('#errorMsg')[0].style.height = "0";
+	$('#ok')[0].style.height = "0";
 	$('#errorBtn')[0].style.height = "0";
 	$('#errorMsg')[0].textContent = "";
 }

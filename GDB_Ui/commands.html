@@ -13,10 +13,6 @@
 		<div class = "option">
 			<input type = "button" value = "Run" onClick = "_run()">
 		</div>
-		<div class = "option_text">
-			<input type="text" id="funcNm" placeholder="Function Name">
-			<input type = "button" value = "Break" onClick = "_break()">
-		</div>
 		<div class = "option">
 			<input type = "button" value = "Step" onClick = "_step()">
 		</div>
@@ -35,6 +31,9 @@
 		<div class = "option">
 			<input type = "button" value = "Down" onClick = "_down()">
 		</div>
+		<div class = "option">
+			<input type = "button" value = "Quit" onClick = "_quit()">
+		</div>
 
 	</div>
 	<div id = "output">
@@ -44,6 +43,25 @@
 		</div>
 		<div id = "errorBtn">
 			<input type="button" id ="ok" value="OK" onClick = "_reset()">
+		</div>
+	</div>
+
+	<div id = "command_text">
+		<div class = "option_text">
+			<input type="text" id="funcNm" placeholder="Function Name or line Number">
+			<input type = "button" value = "Break" onClick = "_break()">
+		</div>
+		<div class = "option_text">
+			<input type="text" id="varNm" placeholder="Variable Name">
+			<input type = "button" value = "Print" onClick = "_printVal()">
+		</div>
+		<div class = "option_text">
+			<input type="text" id="varNmWatch" placeholder="Variable Name">
+			<input type = "button" value = "Watch" onClick = "_watchVal()">
+		</div>
+		<div class = "option_text">
+			<input type="text" id="info" placeholder="Information About">
+			<input type = "button" value = "Info" onClick = "_getInfo()">
 		</div>
 	</div>
 

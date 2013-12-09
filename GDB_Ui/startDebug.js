@@ -14,8 +14,9 @@ function startDebug (fileName) {
 												// register one or more handlers
 	gdb.stdout.setEncoding('utf-8');												
 	gdb.stdout.on('data', function (data) {
-		data = data + '-------------\n';
+		// data = data + '--\n';
 	  	$('#paragraph')[0].value = $('#paragraph')[0].value.concat(data);
+	  	$('#paragraph')[0].value = $('#paragraph')[0].value.slice();
 	  	$('#paragraph').scrollTop($('#paragraph')[0].scrollHeight);
 	});
 	gdb.stderr.on('data', function (data) {
@@ -28,28 +29,45 @@ function startDebug (fileName) {
 	});
 }
 
-function showList(){
+function _list(){
 	gdb.stdin.write('list'+'\n');
 };
 
-function insertBreakPoint(){
+function _break(){
 	var funcNm = $('#funcNm')[0].value;
 	gdb.stdin.write('break ' + funcNm + '\n');
+	$('#funcNm')[0].value = '';
 }
 
-function run(){
+function _run(){
 	gdb.stdin.write('run' + '\n');
 }
 
-function performStep(){
+function _step(){
 	gdb.stdin.write('step' + '\n');
 }
 
-function next(){
+function _next(){
 	gdb.stdin.write('next' + '\n');
 }
 
-function reset(){
+function _continue(){
+	gdb.stdin.write('continue' + '\n');
+}
+
+function _finish(){
+	gdb.stdin.write('finish' + '\n');
+}
+
+function _up(){
+	gdb.stdin.write('up' + '\n');
+}
+
+function _down(){
+	gdb.stdin.write('down' + '\n');
+}
+
+function _reset(){
 	$('#paragraph')[0].style.height = "525";
 	$('#errorMsg')[0].style.height = "0";
 	$('#errorBtn')[0].style.height = "0";

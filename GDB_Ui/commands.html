@@ -8,20 +8,32 @@
 <body>
 	<div id = "commands">
 		<div class = "option">
-			<input type = "button" value = "List" onClick = "showList()">
+			<input type = "button" value = "List" onClick = "_list()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Run" onClick = "run()">
+			<input type = "button" value = "Run" onClick = "_run()">
 		</div>
 		<div class = "option_text">
 			<input type="text" id="funcNm" placeholder="Function Name">
-			<input type = "button" value = "Break" onClick = "insertBreakPoint()">
+			<input type = "button" value = "Break" onClick = "_break()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Step" onClick = "performStep()">
+			<input type = "button" value = "Step" onClick = "_step()">
 		</div>
 		<div class = "option">
-			<input type = "button" value = "Next" onClick = "next()">
+			<input type = "button" value = "Next" onClick = "_next()">
+		</div>
+		<div class = "option">
+			<input type = "button" value = "Continue" onClick = "_continue()">
+		</div>
+		<div class = "option">
+			<input type = "button" value = "Finish" onClick = "_finish()">
+		</div>
+		<div class = "option">
+			<input type = "button" value = "Up" onClick = "_up()">
+		</div>
+		<div class = "option">
+			<input type = "button" value = "Down" onClick = "_down()">
 		</div>
 
 	</div>
@@ -31,7 +43,7 @@
 		<div id = "errorMsg">
 		</div>
 		<div id = "errorBtn">
-			<input type="button" id ="ok" value="OK" onClick = "reset()">
+			<input type="button" id ="ok" value="OK" onClick = "_reset()">
 		</div>
 	</div>
 

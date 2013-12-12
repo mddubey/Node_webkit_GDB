@@ -32,10 +32,13 @@
 			<input type = "button" class = "simp_btn" value = "Down" onClick = 'performOperation("down")'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Quit" onClick = '_quit()'>
+			<input type = "button" class = "simp_btn" value = "BackTrace" onClick = 'performOperation("backtrace")'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "BackTrace" onClick = 'performOperation("backtrace")'>
+			<input type = "button" class = "simp_btn" value = "Help" onClick = 'performOperation("help")'>
+		</div>
+		<div class = "option">
+			<input type = "button" class = "simp_btn" value = "Quit" onClick = '_quit()'>
 		</div>
 
 	</div>
@@ -52,23 +55,23 @@
 	<div id = "command_text">
 		<div class = "option_text">
 			<input type="text" id="funcNm" placeholder="Function Name or line Number">
-			<input type = "button" class = "text_btn" value = "Break" onClick = "_break()">
+			<input type = "button" class = "text_btn" value = "Break" onClick = 'performOperationWithValue("break","#funcNm")'>
 		</div>
 		<div class = "option_text">
 			<input type="text" id="varNm" placeholder="Variable Name">
-			<input type = "button" class = "text_btn" value = "Print" onClick = "_printVal()">
+			<input type = "button" class = "text_btn" value = "Print" onClick = 'performOperationWithValue("print","#varNm")'>
 		</div>
 		<div class = "option_text">
 			<input type="text" id="varNmWatch" placeholder="Variable Name">
-			<input type = "button" class = "text_btn" value = "Watch" onClick = "_watchVal()">
+			<input type = "button" class = "text_btn" value = "Watch" onClick = 'performOperationWithValue("watch","#varNmWatch")'>
 		</div>
 		<div class = "option_text">
 			<input type="text" id="info" placeholder="Information About">
-			<input type = "button" class = "text_btn" value = "Info" onClick = "_getInfo()">
+			<input type = "button" class = "text_btn" value = "Info" onClick = 'performOperationWithValue("info","#info")'>
 		</div>
 		<div class = "option_text">
 			<input type="text" id="setVal" placeholder="set Value">
-			<input type = "button" class = "text_btn" value = "Set" onClick = "_setValue()">
+			<input type = "button" class = "text_btn" value = "Set" onClick = 'performOperationWithValue("set","#setVal")'>
 		</div>
 	</div>
 

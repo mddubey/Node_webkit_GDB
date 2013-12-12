@@ -8,6 +8,7 @@ div{
 #commands{
 	width: 230;
 	text-align: center;
+	padding-top: 3;
 }
 #output{
 	width: 700;
@@ -26,14 +27,20 @@ textarea{
 	width: 105;
 	height: 40;
 	background-color: #eeeeee;
-	margin: 4;
+	margin-right: 4;
+	margin-left: 4;
+	margin-top: 2;
+	margin-bottom: 2;
+	vertical-align: middle;
 }
 
 .option_text{
 	padding: 2;
 	width: 170;
-	height: 50;
+	height: 55;
 	background-color: #eeeeee;
+	margin-top: 2;
+	margin-bottom: 2;
 }
 
 #errorMsg{
@@ -60,10 +67,11 @@ textarea{
 .text_btn{
 	font-size: 100%;
 	width: 100px;
+	height: 25;
 }
 
 .simp_btn{
-	margin: 0;
+	margin-top: 4;
 	font-size: 105%;
 	height: 30;
 	width: 100px;

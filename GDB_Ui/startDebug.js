@@ -2,7 +2,7 @@ var fs = require('fs');
 var gui = require('nw.gui');
 function openDebugWindow(){
     var fileName = $('#exeFile')[0].value;
-    fileName = fileName.replace(/\\/g,'/');
+    fileName = fileName.replace(/\\/g,'/').replace(/ /g,'\\ ');
     console.log(fileName);
 	var nextPageContent = fs.readFileSync('commands.html','utf-8');
 	document.write(nextPageContent);
@@ -32,34 +32,10 @@ function startDebug (fileName) {
 	});
 }
 
-function _break(){
-	var funcNm = $('#funcNm')[0].value;
-	gdb.stdin.write('break ' + funcNm + '\n');
-	$('#funcNm')[0].value = '';
-}
-
-function _printVal(){
-	var variableNm = $('#varNm')[0].value;
-	gdb.stdin.write('print ' + variableNm + '\n');
-	$('#varNm')[0].value = '';
-}
-
-function _watchVal(){
-	var variableNm = $('#varNmWatch')[0].value;
-	gdb.stdin.write('watch ' + variableNm + '\n');
-	$('#varNmWatch')[0].value = '';
-}
-
-function _getInfo(){
-	var variableNm = $('#info')[0].value;
-	gdb.stdin.write('info ' + variableNm + '\n');
-	$('#info')[0].value = '';
-}
-
-function _setValue(){
-	var variableNm = $('#setVal')[0].value;
-	gdb.stdin.write('set ' + variableNm + '\n');
-	$('#setVal')[0].value = '';
+function performOperationWithValue(commandName,textBoxId){
+	var textValue = jQuery(textBoxId)[0].value;
+	gdb.stdin.write(commandName +' '+ textValue + '\n');
+	jQuery(textBoxId)[0].value = '';
 }
 
 function performOperation(commandName){

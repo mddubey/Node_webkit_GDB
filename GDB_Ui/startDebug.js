@@ -56,41 +56,16 @@ function _getInfo(){
 	$('#info')[0].value = '';
 }
 
-function _list(){
-	gdb.stdin.write('list'+'\n');
-};
-
-function _run(){
-	gdb.stdin.write('run' + '\n');
+function _setValue(){
+	var variableNm = $('#setVal')[0].value;
+	gdb.stdin.write('set ' + variableNm + '\n');
+	$('#setVal')[0].value = '';
 }
 
-function _step(){
-	gdb.stdin.write('step' + '\n');
+function performOperation(commandName){
+	gdb.stdin.write(commandName + '\n');
 }
 
-function _next(){
-	gdb.stdin.write('next' + '\n');
-}
-
-function _continue(){
-	gdb.stdin.write('continue' + '\n');
-}
-
-function _finish(){
-	gdb.stdin.write('finish' + '\n');
-}
-
-function _up(){
-	gdb.stdin.write('up' + '\n');
-}
-
-function _down(){
-	gdb.stdin.write('down' + '\n');
-}
-
-function _backtrace(){
-	gdb.stdin.write('backtrace' + '\n');
-}
 
 function _quit(){
 	gdb.stdin.write('quit' + '\n');

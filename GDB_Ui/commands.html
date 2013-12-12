@@ -8,34 +8,34 @@
 <body>
 	<div id = "commands">
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "List" onClick = "_list()">
+			<input type = "button" class = "simp_btn" value = "List" onClick = 'performOperation("list")'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Run" onClick = "_run()">
+			<input type = "button" class = "simp_btn" value = "Run" onClick = 'performOperation("run")'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Step" onClick = "_step()">
+			<input type = "button" class = "simp_btn" value = "Step" onClick = 'performOperation("step")'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Next" onClick = "_next()">
+			<input type = "button" class = "simp_btn" value = "Next" onClick = 'performOperation("next")'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Continue" onClick = "_continue()">
+			<input type = "button" class = "simp_btn" value = "Continue" onClick = 'performOperation("continue")'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Finish" onClick = "_finish()">
+			<input type = "button" class = "simp_btn" value = "Finish" onClick = 'performOperation("finish")'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Up" onClick = "_up()">
+			<input type = "button" class = "simp_btn" value = "Up" onClick = 'performOperation("up")'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Down" onClick = "_down()">
+			<input type = "button" class = "simp_btn" value = "Down" onClick = 'performOperation("down")'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Quit" onClick = "_quit()">
+			<input type = "button" class = "simp_btn" value = "Quit" onClick = '_quit()'>
 		</div>
 		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "BackTrace" onClick = "_backtrace()">
+			<input type = "button" class = "simp_btn" value = "BackTrace" onClick = 'performOperation("backtrace")'>
 		</div>
 
 	</div>
@@ -65,6 +65,10 @@
 		<div class = "option_text">
 			<input type="text" id="info" placeholder="Information About">
 			<input type = "button" class = "text_btn" value = "Info" onClick = "_getInfo()">
+		</div>
+		<div class = "option_text">
+			<input type="text" id="setVal" placeholder="set Value">
+			<input type = "button" class = "text_btn" value = "Set" onClick = "_setValue()">
 		</div>
 	</div>
 

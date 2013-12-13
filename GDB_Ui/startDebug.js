@@ -1,12 +1,26 @@
 var fs = require('fs');
 var gui = require('nw.gui');
 function openDebugWindow(){
-    var fileName = $('#exeFile')[0].value;
+    var fileName = jQuery('#exeFile')[0].value;
     fileName = fileName.replace(/\\/g,'/').replace(/ /g,'\\ ');
     console.log(fileName);
 	var nextPageContent = fs.readFileSync('commands.html','utf-8');
 	document.write(nextPageContent);
 	startDebug(fileName);
+}
+
+var showError = function(data){
+	jQuery('#output_text')[0].style.height = "450";
+  	jQuery('#errorMsg')[0].style.height = "70";
+	jQuery('#errorBtn')[0].style.height = "70";	
+	jQuery('#ok')[0].style.height = "25";
+	jQuery('#errorMsg')[0].textContent = data;
+}
+
+var showOutput = function(data){
+	jQuery('#output_text')[0].value = jQuery('#output_text')[0].value.concat(data);
+	jQuery('#output_text')[0].value = jQuery('#output_text')[0].value.slice();
+	jQuery('#output_text').scrollTop(jQuery('#output_text')[0].scrollHeight);
 }
 
 function startDebug (fileName) {
@@ -15,19 +29,8 @@ function startDebug (fileName) {
 	                                          // options
 												// register one or more handlers
 	gdb.stdout.setEncoding('utf-8');												
-	gdb.stdout.on('data', function (data) {
-		// data = data + '--\n';
-	  	$('#output_text')[0].value = $('#output_text')[0].value.concat(data);
-	  	$('#output_text')[0].value = $('#output_text')[0].value.slice();
-	  	$('#output_text').scrollTop($('#output_text')[0].scrollHeight);
-	});
-	gdb.stderr.on('data', function (data) {
-	  $('#output_text')[0].style.height = "450";
-	  $('#errorMsg')[0].style.height = "70";
-	  $('#errorBtn')[0].style.height = "70";
-	  $('#ok')[0].style.height = "25";
-	  $('#errorMsg')[0].textContent = data;
-	});
+	gdb.stdout.on('data', showOutput);
+	gdb.stderr.on('data', showError);
 	gdb.on('exit', function (code) {
 	});
 }
@@ -41,7 +44,6 @@ function performOperationWithValue(commandName,textBoxId){
 function performOperation(commandName){
 	gdb.stdin.write(commandName + '\n');
 }
-
 
 function _quit(){
 	gdb.stdin.write('quit' + '\n');
@@ -59,9 +61,9 @@ function _quit(){
 }
 
 function _reset(){
-	$('#output_text')[0].style.height = "525";
-	$('#errorMsg')[0].style.height = "0";
-	$('#ok')[0].style.height = "0";
-	$('#errorBtn')[0].style.height = "0";
-	$('#errorMsg')[0].textContent = "";
+	jQuery('#output_text')[0].style.height = "525";
+	jQuery('#errorMsg')[0].style.height = "0";
+	jQuery('#ok')[0].style.height = "0";
+	jQuery('#errorBtn')[0].style.height = "0";
+	jQuery('#errorMsg')[0].textContent = "";
 }

@@ -6,3 +6,8 @@ p{
 	text-align: justify;
 	font-size: 200%;
 }
+
+input{
+	font-size: 60%;
+	height: 30;
+}

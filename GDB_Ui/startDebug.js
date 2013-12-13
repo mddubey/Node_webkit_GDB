@@ -17,12 +17,12 @@ function startDebug (fileName) {
 	gdb.stdout.setEncoding('utf-8');												
 	gdb.stdout.on('data', function (data) {
 		// data = data + '--\n';
-	  	$('#paragraph')[0].value = $('#paragraph')[0].value.concat(data);
-	  	$('#paragraph')[0].value = $('#paragraph')[0].value.slice();
-	  	$('#paragraph').scrollTop($('#paragraph')[0].scrollHeight);
+	  	$('#output_text')[0].value = $('#output_text')[0].value.concat(data);
+	  	$('#output_text')[0].value = $('#output_text')[0].value.slice();
+	  	$('#output_text').scrollTop($('#output_text')[0].scrollHeight);
 	});
 	gdb.stderr.on('data', function (data) {
-	  $('#paragraph')[0].style.height = "450";
+	  $('#output_text')[0].style.height = "450";
 	  $('#errorMsg')[0].style.height = "70";
 	  $('#errorBtn')[0].style.height = "70";
 	  $('#ok')[0].style.height = "25";
@@ -59,7 +59,7 @@ function _quit(){
 }
 
 function _reset(){
-	$('#paragraph')[0].style.height = "525";
+	$('#output_text')[0].style.height = "525";
 	$('#errorMsg')[0].style.height = "0";
 	$('#ok')[0].style.height = "0";
 	$('#errorBtn')[0].style.height = "0";

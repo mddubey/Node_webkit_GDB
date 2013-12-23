@@ -6,74 +6,9 @@
 	<script type = "text/javascript" src = "startDebug.js"></script>
 </head>
 <body>
-	<div id = "commands">
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "List" onClick = 'performOperation("list")'>
-		</div>
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Run" onClick = 'performOperation("run")'>
-		</div>
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Step" onClick = 'performOperation("step")'>
-		</div>
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Next" onClick = 'performOperation("next")'>
-		</div>
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Continue" onClick = 'performOperation("continue")'>
-		</div>
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Finish" onClick = 'performOperation("finish")'>
-		</div>
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Up" onClick = 'performOperation("up")'>
-		</div>
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Down" onClick = 'performOperation("down")'>
-		</div>
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "BackTrace" onClick = 'performOperation("backtrace")'>
-		</div>
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Help" onClick = 'performOperation("help")'>
-		</div>
-		<div class = "option">
-			<input type = "button" class = "simp_btn" value = "Quit" onClick = '_quit()'>
-		</div>
-
-	</div>
-	<div id = "output">
-		<textarea id = "output_text" name="" readonly="readonly">
+	<div id = "mainFile">
+		<textarea id = "codeWindow" readonly = "true">
 		</textarea>
-		<div id = "errorMsg">
-		</div>
-		<div id = "errorBtn">
-			<input type="button" id ="ok" value="OK" onClick = "_reset()">
-		</div>
 	</div>
-
-	<div id = "command_text">
-		<div class = "option_text">
-			<input type="text" id="funcNm" placeholder="Function Name or line Number">
-			<input type = "button" class = "text_btn" value = "Break" onClick = 'performOperationWithValue("break","#funcNm")'>
-		</div>
-		<div class = "option_text">
-			<input type="text" id="varNm" placeholder="Variable Name">
-			<input type = "button" class = "text_btn" value = "Print" onClick = 'performOperationWithValue("print","#varNm")'>
-		</div>
-		<div class = "option_text">
-			<input type="text" id="varNmWatch" placeholder="Variable Name">
-			<input type = "button" class = "text_btn" value = "Watch" onClick = 'performOperationWithValue("watch","#varNmWatch")'>
-		</div>
-		<div class = "option_text">
-			<input type="text" id="info" placeholder="Information About">
-			<input type = "button" class = "text_btn" value = "Info" onClick = 'performOperationWithValue("info","#info")'>
-		</div>
-		<div class = "option_text">
-			<input type="text" id="setVal" placeholder="set Value">
-			<input type = "button" class = "text_btn" value = "Set" onClick = 'performOperationWithValue("set","#setVal")'>
-		</div>
-	</div>
-
 </body>
 </html>

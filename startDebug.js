@@ -4,12 +4,8 @@ var gui = require('nw.gui');
 var collectCode = function(code, gdb) {
 	return function(data) {
 		code.content += data;
-		try{
-			gdb.stdin.write('list\n');			
-		}
-		catch(e){
-			console.log(e);
-		}
+		if(gdb.stdin.destroyed) return;
+		gdb.stdin.write('list\n');
 	}
 
 }
@@ -38,6 +34,7 @@ var loadFullFile = function(fileName) {
 	gdb.stdout.on('data', collectCode(code, gdb));
 
 	gdb.stderr.on('data', function(errorMsg) {
+		if(gdb.stdin.destroyed) return;
 		gdb.stdin.write('quit\n');
 		gdb.stdin.end();
 	});

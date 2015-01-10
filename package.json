@@ -2,8 +2,8 @@
   "name": "nw-demo",
   "main": "index.html",
   "window":{
-  	"width":1000,
-  	"height":800,
+  	"width":1200,
+  	"height":900,
   	"position":"center"
   }
 }

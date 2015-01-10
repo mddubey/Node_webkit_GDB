@@ -1,14 +1,61 @@
 var fs = require('fs');
 var gui = require('nw.gui');
 
-function openDebugWindow(){
-    var fileName = jQuery('#exeFile')[0].value;
-    fileName = fileName.replace(/\\/g,'/').replace(/ /g,'\\ ');
-    console.log(fileName);
-	var nextPageContent = fs.readFileSync('commands.html','utf-8');
-	document.write(nextPageContent);
-	// startDebug(fileName);
+var collectCode = function(code, gdb) {
+	return function(data) {
+		code.content += data;
+		try{
+			gdb.stdin.write('list\n');			
+		}
+		catch(e){
+			console.log(e);
+		}
+	}
+
 }
+
+var onFullContent = function(code) {
+	return function() {
+		var codeLines = code.content.split('\n');
+		var actualCodeLines = codeLines.slice(2); //remove unwanted lines as reading from .....
+		var actualCode = actualCodeLines.join('\n');
+		actualCode = actualCode.replace(/\(gdb\) /ig,'');
+		interface.onFullCode(actualCode);
+	}
+}
+
+
+var loadFullFile = function(fileName) {
+	var code = {
+		content: ''
+	};
+	spawn = require('child_process').spawn;
+	var gdb = spawn('gdb', ['-q', fileName]);
+
+	gdb.stdout.setEncoding('utf-8');
+	gdb.stderr.setEncoding('utf-8');
+
+	gdb.stdout.on('data', collectCode(code, gdb));
+
+	gdb.stderr.on('data', function(errorMsg) {
+		gdb.stdin.write('quit\n');
+		gdb.stdin.end();
+	});
+
+	gdb.stdout.on('end', onFullContent(code));
+	gdb.on('exit', function(arg) {});
+	gdb.stdin.write('list\n');
+}
+
+var openDebugWindow = function() {
+	var fileName = jQuery('#exeFile')[0].value;
+	fileName = fileName.replace(/\\/g, '/').replace(/ /g, '\\ ');
+	console.log(fileName);
+	var nextPageContent = fs.readFileSync('commands.html', 'utf-8');
+	document.write(nextPageContent);
+	loadFullFile(fileName);
+}
+
 
 // var showError = function(data){
 // 	jQuery('#output_text')[0].style.height = "450";

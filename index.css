@@ -21,6 +21,10 @@ td{
 	white-space: nowrap;
 }
 
-td.breakpoint{
+td.lineNumber{
 	background-color: green;
+}
+
+tr.breakpoint{
+	background-color: pink;
 }

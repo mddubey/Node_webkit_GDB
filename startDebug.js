@@ -1,11 +1,13 @@
+var gdbDebugger = {};
 var fs = require('fs');
 var gui = require('nw.gui');
+spawn = require('child_process').spawn;
 
-var collectCode = function(code, gdb) {
+var collectCode = function(code, gdbForList) {
 	return function(data) {
 		code.content += data;
-		if(gdb.stdin.destroyed) return;
-		gdb.stdin.write('list\n');
+		if (gdbForList.stdin.destroyed) return;
+		gdbForList.stdin.write('list\n');
 	}
 
 }
@@ -15,43 +17,62 @@ var onFullContent = function(code) {
 		var codeLines = code.content.split('\n');
 		var actualCodeLines = codeLines.slice(2); //remove unwanted lines as reading from .....
 		var actualCode = actualCodeLines.join('\n');
-		actualCode = actualCode.replace(/\(gdb\) /ig,'');
+		actualCode = actualCode.replace(/\(gdb\) /ig, '');
 		interface.onFullCode(actualCode);
 	}
 }
 
+var spawnDebugTask = function(fileName){
+	gdbDebugger.debugTask = spawn('gdb', ['-q', fileName]);
+	
+	gdbDebugger.debugTask.stdout.setEncoding('utf-8');
+	gdbDebugger.debugTask.stderr.setEncoding('utf-8');
 
-var loadSymboles = function(fileName) {
+	gdbDebugger.debugTask.stdout.on('data', function(msg) {
+		console.log(msg);
+	});
+
+	gdbDebugger.debugTask.stderr.on('data', function(errorMsg) {
+		console.log(errorMsg);
+	});
+}
+
+
+gdbDebugger.loadSymboles = function(fileName) {
 	var code = {
 		content: ''
 	};
-	spawn = require('child_process').spawn;
-	var gdb = spawn('gdb', ['-q', fileName]);
+	spawnDebugTask(fileName);
 
-	gdb.stdout.setEncoding('utf-8');
-	gdb.stderr.setEncoding('utf-8');
+	var gdbForList = spawn('gdb', ['-q', fileName]);
 
-	gdb.stdout.on('data', collectCode(code, gdb));
+	gdbForList.stdout.setEncoding('utf-8');
+	gdbForList.stderr.setEncoding('utf-8');
 
-	gdb.stderr.on('data', function(errorMsg) {
-		if(gdb.stdin.destroyed) return;
-		gdb.stdin.write('quit\n');
-		gdb.stdin.end();
+	gdbForList.stdout.on('data', collectCode(code, gdbForList));
+
+	gdbForList.stderr.on('data', function(errorMsg) {
+		if (gdbForList.stdin.destroyed) return;
+		gdbForList.stdin.write('quit\n');
+		gdbForList.stdin.end();
 	});
 
-	gdb.stdout.on('end', onFullContent(code));
-	gdb.on('exit', function(arg) {});
-	gdb.stdin.write('list\n');
+	gdbForList.stdout.on('end', onFullContent(code));
+	gdbForList.on('exit', function(arg) {});
+	gdbForList.stdin.write('list\n');
 }
 
-var openDebugWindow = function() {
-	var fileName = jQuery('#exeFile')[0].value;
-	fileName = fileName.replace(/\\/g, '/').replace(/ /g, '\\ ');
-	console.log(fileName);
-	var nextPageContent = fs.readFileSync('commands.html', 'utf-8');
-	document.write(nextPageContent);
-	loadFullFile(fileName);
+var processCommand = function(command) {
+	gdbDebugger.debugTask.stdin.write(command + '\n');
 }
+
+gdbDebugger.insertBreakPoint = function(lineNumber) {
+	processCommand('break ' + lineNumber);
+};
+
+gdbDebugger.removeBreakPoint = function(lineNumber) {
+	processCommand('clear ' + lineNumber);
+};
 
 
 // var showError = function(data){
@@ -74,7 +95,7 @@ var openDebugWindow = function() {
 // 	gdb = spawn('gdb', [fileName]); // the second arg is the command 
 // 	                                          // options
 // 												// register one or more handlers
-// 	gdb.stdout.setEncoding('utf-8');												
+// 	gdbForList.stdout.setEncoding('utf-8');												
 // 	gdb.stdout.on('data', showOutput);
 // 	gdb.stderr.on('data', showError);
 // 	gdb.on('exit', function (code) {

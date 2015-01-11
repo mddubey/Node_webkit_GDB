@@ -3,18 +3,26 @@
 		<title>GDB App</title>
 		<link rel="stylesheet" href="index.css">
 		<script type = "text/javascript" src = "jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src = "interface.js"></script>
 		<script type="text/javascript" src = "script.js"></script>
 		<script type="text/javascript" src = "startDebug.js"></script>
 	</head>
 	<body>
-		<h1>Hi Your Welcome to GDB.</h1>
-		<p>
-			GDB App gives interface to debug your C programs. You can write your c 		Program and debug here through GDB.
-			Here is a simple example to debug a Test.
-		</p>
-		<p>
-			<input type="file" id="exeFile" value="" placeholder="">
-			<input type="button" name="" value="Click Here" onClick = "openDebugWindow()">
-		</p>
+		<div id="loadFile">
+			<h1>Hi Your Welcome to GDB.</h1>
+			<p>
+				GDB App gives interface to debug your C programs. You can write your c 		Program and debug here through GDB.
+				Here is a simple example to debug a Test.
+			</p>
+			<p>
+				<input type="file" id="exeFile" value="" placeholder="">
+				<button id="loadExe">Load Exe</button>
+			</p>
+		</div>
+		<div id="debugWindow">
+			<table id="codeWindow">
+			
+			</table>
+		</div>
 	</body>
 </html>

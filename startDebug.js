@@ -21,7 +21,7 @@ var onFullContent = function(code) {
 }
 
 
-var loadFullFile = function(fileName) {
+var loadSymboles = function(fileName) {
 	var code = {
 		content: ''
 	};

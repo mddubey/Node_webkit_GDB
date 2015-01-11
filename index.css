@@ -7,7 +7,20 @@ p{
 	font-size: 200%;
 }
 
-input{
-	font-size: 60%;
-	height: 30;
+div{
+	margin: 2%;
+	height: 85%;
+	width: 95%;
+	text-align: center;
+}
+
+td{
+	text-align: justify;
+	font-size: 120%;
+	font-family: monospace;
+	white-space: nowrap;
+}
+
+td.breakpoint{
+	background-color: green;
 }

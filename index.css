@@ -7,11 +7,20 @@ p{
 	font-size: 200%;
 }
 
-div{
+#debugWindow{
 	margin: 2%;
 	height: 85%;
 	width: 95%;
-	text-align: center;
+	overflow:scroll;
+}
+
+#toolWindow{
+	height: 5%;
+	width: 95%;
+	top: 72%;
+}
+
+table{
 }
 
 td{
@@ -22,9 +31,23 @@ td{
 }
 
 td.lineNumber{
-	background-color: green;
 }
 
 tr.breakpoint{
 	background-color: pink;
 }
+
+tr.currentLine{
+	background-color: yellow;
+}
+
+.command{
+	background-color: #eeeeee;
+	margin-right: 4;
+	margin-left: 4;
+	margin-top: 2;
+	margin-bottom: 2;
+	vertical-align: middle;
+}
+
+

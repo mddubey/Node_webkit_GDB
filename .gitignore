@@ -1,0 +1,4 @@
+#OSX specific files
+.DS_Store
+
+error.log

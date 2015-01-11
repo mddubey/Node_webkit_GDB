@@ -16,6 +16,11 @@ interface.onFullCode = function(fullCodeContent) {
 	jQuery('#codeWindow').html(tbody);
 };
 
+interface.showCurrentRunningLine = function(currentRunningLineNumber) {
+	jQuery('.currentLine').removeClass('currentLine');
+	jQuery('td[data-line="' + currentRunningLineNumber + '"').parent().addClass('currentLine');
+};
+
 
 interface.init = function() {
 	var loadSymbolsFromFile = function() {
@@ -25,7 +30,7 @@ interface.init = function() {
 		gdbDebugger.loadSymboles(fileName);
 	};
 
-	var setBreakPoint = function() {
+	var manageBreakPoint = function() {
 		var td = jQuery(this);
 		var lineNumber = td.data('line');
 		if (td.parent().hasClass('breakpoint')) {
@@ -39,7 +44,9 @@ interface.init = function() {
 
 	jQuery('#loadExe').click(loadSymbolsFromFile);
 
-	jQuery('#codeWindow').on('click', '.lineNumber', setBreakPoint);
+	jQuery('#codeWindow').on('click', '.lineNumber', manageBreakPoint);
+
+	jQuery('#run').click(gdbDebugger.run);
 
 };
 

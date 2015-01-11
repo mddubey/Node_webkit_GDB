@@ -47,6 +47,7 @@ interface.init = function() {
 	jQuery('#codeWindow').on('click', '.lineNumber', manageBreakPoint);
 
 	jQuery('#run').click(gdbDebugger.run);
+	jQuery('#continue').click(gdbDebugger.continue);
 
 };
 

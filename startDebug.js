@@ -31,13 +31,17 @@ var spawnDebugTask = function(fileName){
 	gdbDebugger.debugTask.stdout.on('data', function(msg) {
 		if(gdbDebugger.lastCommand === 'run'){
 			if(msg.indexOf('Starting program:') === 0) return;
-			gdbDebugger.lastCommand = '';
-			console.log(msg);
 			var msgLines = msg.split('\n');
-			console.log(msgLines[2]);
 			var currentRunningLineNumber = msgLines[2].split('\t')[0];
 			interface.showCurrentRunningLine(currentRunningLineNumber);
 		}
+		if(gdbDebugger.lastCommand === 'continue'){
+			console.log(msg);
+			var msgLines = msg.split('\n');
+			var currentRunningLineNumber = msgLines[3].split('\t')[0];
+			interface.showCurrentRunningLine(currentRunningLineNumber);
+		}
+			gdbDebugger.lastCommand = '';
 	});
 
 	gdbDebugger.debugTask.stderr.on('data', function(errorMsg) {
@@ -85,4 +89,8 @@ gdbDebugger.removeBreakPoint = function(lineNumber) {
 
 gdbDebugger.run = function() {
 	processCommand('run');
+};
+
+gdbDebugger.continue = function() {
+	processCommand('continue');
 };

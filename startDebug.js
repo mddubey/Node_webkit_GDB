@@ -22,30 +22,36 @@ var onFullContent = function(code) {
 	}
 }
 
-var spawnDebugTask = function(fileName){
+var spawnDebugTask = function(fileName) {
 	gdbDebugger.debugTask = spawn('gdb', ['-q', fileName]);
-	
+
 	gdbDebugger.debugTask.stdout.setEncoding('utf-8');
 	gdbDebugger.debugTask.stderr.setEncoding('utf-8');
 
 	gdbDebugger.debugTask.stdout.on('data', function(msg) {
-		if(gdbDebugger.lastCommand === 'run'){
-			if(msg.indexOf('Starting program:') === 0) return;
+		if (gdbDebugger.lastCommand === 'run') {
+			if (msg.indexOf('Starting program:') === 0) return;
 			var msgLines = msg.split('\n');
 			var currentRunningLineNumber = msgLines[2].split('\t')[0];
 			interface.showCurrentRunningLine(currentRunningLineNumber);
 		}
-		if(gdbDebugger.lastCommand === 'continue'){
-			console.log(msg);
+		if (gdbDebugger.lastCommand === 'continue') {
+			if (msg === 'Continuing.\n') return;
 			var msgLines = msg.split('\n');
-			var currentRunningLineNumber = msgLines[3].split('\t')[0];
+			var currentRunningLineNumber = msgLines[msgLines.length - 2].split('\t')[0];
 			interface.showCurrentRunningLine(currentRunningLineNumber);
 		}
-			gdbDebugger.lastCommand = '';
+		if(gdbDebugger.lastCommand === 'step'){
+			var msgLines = msg.split('\n');
+			console.log(msgLines[1]);
+			var currentRunningLineNumber = msgLines[1].split('\t')[0];
+			interface.showCurrentRunningLine(currentRunningLineNumber);	
+		}
+		gdbDebugger.lastCommand = '';
 	});
 
 	gdbDebugger.debugTask.stderr.on('data', function(errorMsg) {
-		require('fs').writeFile('./error.log',errorMsg+'\n\n\n');
+		require('fs').writeFile('./error.log', errorMsg + '\n\n\n');
 	});
 }
 
@@ -93,4 +99,8 @@ gdbDebugger.run = function() {
 
 gdbDebugger.continue = function() {
 	processCommand('continue');
+};
+
+gdbDebugger.stepInto = function() {
+	processCommand('step');
 };

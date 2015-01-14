@@ -48,6 +48,7 @@ interface.init = function() {
 
 	jQuery('#run').click(gdbDebugger.run);
 	jQuery('#continue').click(gdbDebugger.continue);
+	jQuery('#step').click(gdbDebugger.stepInto);
 
 };
 

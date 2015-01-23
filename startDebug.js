@@ -41,17 +41,27 @@ var spawnDebugTask = function(fileName) {
 			var currentRunningLineNumber = msgLines[msgLines.length - 2].split('\t')[0];
 			interface.showCurrentRunningLine(currentRunningLineNumber);
 		}
-		if(gdbDebugger.lastCommand === 'step'){
+		if (gdbDebugger.lastCommand === 'step') {
 			var msgLines = msg.split('\n');
-			console.log(msgLines[1]);
 			var currentRunningLineNumber = msgLines[1].split('\t')[0];
-			interface.showCurrentRunningLine(currentRunningLineNumber);	
+			interface.showCurrentRunningLine(currentRunningLineNumber);
+		}
+		if (gdbDebugger.lastCommand === 'print') {
+			if(msg === '(gdb) ') return;
+			var msgLines = msg.split('\n');
+			var words = msgLines[0].split(' ');
+			var result = words[words.length - 1];
+			interface.onExpressionrResult(result);
 		}
 		gdbDebugger.lastCommand = '';
 	});
 
 	gdbDebugger.debugTask.stderr.on('data', function(errorMsg) {
-		require('fs').writeFile('./error.log', errorMsg + '\n\n\n');
+		if(gdbDebugger.lastCommand === 'print'){
+			interface.onExpressionrError(errorMsg);
+			return;
+		};
+		require('fs').appendFile('./error.log', errorMsg + '\n');
 	});
 }
 
@@ -103,4 +113,8 @@ gdbDebugger.continue = function() {
 
 gdbDebugger.stepInto = function() {
 	processCommand('step');
+};
+
+gdbDebugger.evaluate = function(expression) {
+	processCommand('print ' + expression);
 };

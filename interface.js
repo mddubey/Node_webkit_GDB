@@ -21,10 +21,21 @@ interface.showCurrentRunningLine = function(currentRunningLineNumber) {
 	jQuery('td[data-line="' + currentRunningLineNumber + '"').parent().addClass('currentLine');
 };
 
+interface.onExpressionrResult = function(result){
+	jQuery('#result').val(result);
+	jQuery('#result').css({color:'green'});
+};
+
+interface.onExpressionrError = function(errorMsg){
+	jQuery('#result').val(errorMsg);
+	jQuery('#result').css({color:'red'});	
+}
+
 
 interface.init = function() {
 	var loadSymbolsFromFile = function() {
 		jQuery('#loadFile').hide();
+		jQuery('#main').show();
 		var fileName = jQuery('#exeFile')[0].value;
 		fileName = fileName.replace(/\\/g, '/').replace(/ /g, '\\ ');
 		gdbDebugger.loadSymboles(fileName);
@@ -36,11 +47,15 @@ interface.init = function() {
 		if (td.parent().hasClass('breakpoint')) {
 			gdbDebugger.removeBreakPoint(lineNumber);
 			td.parent().removeClass('breakpoint');
-			return
+			return;
 		}
 		gdbDebugger.insertBreakPoint(lineNumber);
 		td.parent().addClass('breakpoint');
 	};
+
+	var showEvaluateWindow = function(){
+		jQuery('#evaluateWindow').show();
+	}
 
 	jQuery('#loadExe').click(loadSymbolsFromFile);
 
@@ -49,7 +64,20 @@ interface.init = function() {
 	jQuery('#run').click(gdbDebugger.run);
 	jQuery('#continue').click(gdbDebugger.continue);
 	jQuery('#step').click(gdbDebugger.stepInto);
+	jQuery('#evaluate').click(showEvaluateWindow);
 
+	jQuery('#expression').on('keydown',function(e){
+		if(e.keyCode === 13)
+			gdbDebugger.evaluate($(this).val().trim());
+	});
+
+	$(".ui-closable-tab").click(function(){
+		jQuery(this).parent().hide();
+	});
+
+	jQuery('#evaluateWindow').draggable({
+        appendTo: "body"
+    });
 };
 
 jQuery(document).ready(interface.init);

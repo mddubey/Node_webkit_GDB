@@ -43,7 +43,7 @@ var spawnDebugTask = function(fileName) {
 		}
 		if (gdbDebugger.lastCommand === 'step') {
 			var msgLines = msg.split('\n');
-			var currentRunningLineNumber = msgLines[1].split('\t')[0];
+			var currentRunningLineNumber = msgLines[msgLines.length - 2].split('\t')[0];
 			interface.showCurrentRunningLine(currentRunningLineNumber);
 		}
 		if (gdbDebugger.lastCommand === 'print') {
@@ -87,7 +87,7 @@ gdbDebugger.loadSymboles = function(fileName) {
 
 	gdbForList.stdout.on('end', onFullContent(code));
 	gdbForList.on('exit', function(arg) {});
-	gdbForList.stdin.write('list\n');
+	gdbForList.stdin.write('list 1\n');
 }
 
 var processCommand = function(command) {
@@ -117,4 +117,12 @@ gdbDebugger.stepInto = function() {
 
 gdbDebugger.evaluate = function(expression) {
 	processCommand('print ' + expression);
+};
+
+gdbDebugger.next = function() {
+	processCommand('next');
+};
+
+gdbDebugger.next = function() {
+	processCommand('finish');
 };

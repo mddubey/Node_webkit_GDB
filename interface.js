@@ -71,6 +71,7 @@ interface.init = function() {
 	jQuery('#step').click(gdbDebugger.stepInto);
 	jQuery('#finish').click(gdbDebugger.finish);
 	jQuery('#next').click(gdbDebugger.next);
+	jQuery('#quit').click(gdbDebugger.quit);
 	jQuery('#evaluate').click(showEvaluateWindow);
 
 	jQuery('#expression').on('keydown', function(e) {

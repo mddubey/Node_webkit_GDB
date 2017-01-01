@@ -85,6 +85,8 @@ interface.init = function() {
 	jQuery('#evaluateWindow').draggable({
 		appendTo: "body"
 	});
+	fs = require('fs');
+	fs.closeSync(fs.openSync('./error.log', 'w'));
 };
 
 jQuery(document).ready(interface.init);

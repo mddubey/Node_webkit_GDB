@@ -9,7 +9,6 @@ var collectCode = function(code, gdbForList) {
 		if (gdbForList.stdin.destroyed) return;
 		gdbForList.stdin.write('list\n');
 	}
-
 }
 
 var onFullContent = function(code) {
@@ -57,6 +56,7 @@ var spawnDebugTask = function(fileName) {
 	});
 
 	gdbDebugger.debugTask.stderr.on('data', function(errorMsg) {
+		console.log(errorMsg)
 		if(gdbDebugger.lastCommand === 'print'){
 			interface.onExpressionrError(errorMsg);
 			return;
@@ -123,6 +123,6 @@ gdbDebugger.next = function() {
 	processCommand('next');
 };
 
-gdbDebugger.next = function() {
+gdbDebugger.finish = function() {
 	processCommand('finish');
 };

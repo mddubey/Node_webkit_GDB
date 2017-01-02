@@ -1,5 +1,4 @@
 var gdbDebugger = {};
-var gui = require('nw.gui');
 gdbDebugger.lastCommand = '';
 spawn = require('child_process').spawn;
 
@@ -28,6 +27,7 @@ var spawnDebugTask = function(fileName) {
 	gdbDebugger.debugTask.stderr.setEncoding('utf-8');
 
 	gdbDebugger.debugTask.stdout.on('data', function(msg) {
+		console.log(msg);
 		if (gdbDebugger.lastCommand === 'run') {
 			if (msg.indexOf('Starting program:') === 0) return;
 			var msgLines = msg.split('\n');
@@ -125,4 +125,12 @@ gdbDebugger.next = function() {
 
 gdbDebugger.finish = function() {
 	processCommand('finish');
+};
+
+gdbDebugger.quit = function() {
+	processCommand('quit');
+	setTimeout(function() {
+		gdbDebugger.debugTask.kill();
+		interface.onQuitProcessed();
+	},1000);
 };

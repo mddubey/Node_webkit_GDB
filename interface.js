@@ -1,4 +1,5 @@
 var interface = {};
+var gui = require('nw.gui');
 
 var generateTableHtml = function(prev, nextLine, index) {
 	var linePartes = nextLine.split('\t');
@@ -34,6 +35,10 @@ interface.onExpressionrError = function(errorMsg) {
 	jQuery('#result').css({
 		color: 'red'
 	});
+}
+
+interface.onQuitProcessed = function(){
+	gui.Window.get().close();
 }
 
 

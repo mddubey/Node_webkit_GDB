@@ -2,6 +2,8 @@ var gdbDebugger = {};
 gdbDebugger.lastCommand = '';
 spawn = require('child_process').spawn;
 
+var NOT_BEING_RUN_ERROR_MSG = 'The program is not being run.';
+
 var collectCode = function(code, gdbForList) {
 	return function(data) {
 		code.content += data;
@@ -20,6 +22,15 @@ var onFullContent = function(code) {
 	}
 }
 
+var showCurrentRunningLineIfPresent = function(msg, breakLineNumber, breakFromEnd){
+	var msgLines = msg.split('\n');
+	if(breakFromEnd){
+		breakLineNumber = msgLines.length - breakLineNumber;
+	}
+	var currentRunningLineNumber = msgLines[breakLineNumber].split('\t')[0];
+	interface.showCurrentRunningLine(currentRunningLineNumber);
+}
+
 var spawnDebugTask = function(fileName) {
 	gdbDebugger.debugTask = spawn('gdb', ['-q', fileName]);
 
@@ -27,29 +38,25 @@ var spawnDebugTask = function(fileName) {
 	gdbDebugger.debugTask.stderr.setEncoding('utf-8');
 
 	gdbDebugger.debugTask.stdout.on('data', function(msg) {
+		if(msg.trim() === '(gdb)') return;
+		alert(msg)
 		if (gdbDebugger.lastCommand === 'run') {
+			debugger;
 			if (msg.indexOf('Starting program:') === 0) return;
 			if (msg.trim().indexOf('Breakpoint') !== 0){
-				interface.onGenericError("No Breakpoint Set.");
+				interface.onGenericError("Please set atleast one Breakpoint, before running the debugger");
 				return;
 			}
-			var msgLines = msg.split('\n');
-			var currentRunningLineNumber = msgLines[2].split('\t')[0];
-			interface.showCurrentRunningLine(currentRunningLineNumber);
+			showCurrentRunningLineIfPresent(msg, 2, false);
 		}
 		if (gdbDebugger.lastCommand === 'continue') {
 			if (msg === 'Continuing.\n') return;
-			var msgLines = msg.split('\n');
-			var currentRunningLineNumber = msgLines[msgLines.length - 2].split('\t')[0];
-			interface.showCurrentRunningLine(currentRunningLineNumber);
+			showCurrentRunningLineIfPresent(msg, 2, true);
 		}
 		if (gdbDebugger.lastCommand === 'step') {
-			var msgLines = msg.split('\n');
-			var currentRunningLineNumber = msgLines[msgLines.length - 2].split('\t')[0];
-			interface.showCurrentRunningLine(currentRunningLineNumber);
+			showCurrentRunningLineIfPresent(msg, 2, true);
 		}
 		if (gdbDebugger.lastCommand === 'print') {
-			if(msg === '(gdb) ') return;
 			var msgLines = msg.split('\n');
 			var words = msgLines[0].split(' ');
 			var result = words[words.length - 1];
@@ -59,6 +66,11 @@ var spawnDebugTask = function(fileName) {
 	});
 
 	gdbDebugger.debugTask.stderr.on('data', function(errorMsg) {
+		if (errorMsg.trim() === NOT_BEING_RUN_ERROR_MSG) {
+			interface.onGenericError(NOT_BEING_RUN_ERROR_MSG);
+			return;
+		};
+		alert(errorMsg);
 		if(gdbDebugger.lastCommand === 'print'){
 			interface.onExpressionrError(errorMsg);
 			return;

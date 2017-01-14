@@ -1,0 +1,3 @@
+I should be able to install GDB-UI with the dmg/exe file.
+
+I should be able to debug my single file code by giving an exe file with symobles.

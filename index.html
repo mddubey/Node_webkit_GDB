@@ -1,25 +1,31 @@
-<html>
+<html>	
 	<head>
 		<title>GDB App</title>
 		<link rel="stylesheet" href="index.css">
 		<link rel="stylesheet" href="jquery-ui.css">
-		<script type = "text/javascript" src = "jquery-2.0.3.min.js"></script>
-		<script type = "text/javascript" src = "jquery-ui.js"></script>
+		<link rel="stylesheet" href="bootstrap-3.3.7.min.css">
+		<script type="text/javascript" src = "jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src = "bootstrap-3.3.7.min.js"></script>
+		<script type="text/javascript" src = "jquery-ui.js"></script>
 		<script type="text/javascript" src = "interface.js"></script>
 		<script type="text/javascript" src = "startDebug.js"></script>
 	</head>
 	<body>
 		<div id="loadFile">
-			<h1>Hi Your Welcome to GDB.</h1>
+			<h1>Hi! Welcome to GDB.</h1>
 			<p>
 				GDB App gives interface to debug your C programs. You can write your C Program and debug here through GDB.
 			</p>
-			<p>
-				<input type="file" id="exeFile" value="" placeholder="">
-				<button id="loadExe">Load Exe</button>
-			</p>
+			<label id="exeFile" class="btn btn-primary btn-file">
+    			Browse <input type="file" style="display: none;">
+			</label>
+			<button id="loadExe" class="btn btn-primary">Load Exe</button>
 		</div>
 		<div id="main">
+			<div id="error" class="alert alert-danger">
+				<a href="#" class="close" data-hide="alert" aria-label="close" onclick="$('#error').hide()">×</a>
+				<p></p>
+			</div>
 			<div id="debugWindow">
 				<table id="codeWindow">
 				

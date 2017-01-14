@@ -27,9 +27,12 @@ var spawnDebugTask = function(fileName) {
 	gdbDebugger.debugTask.stderr.setEncoding('utf-8');
 
 	gdbDebugger.debugTask.stdout.on('data', function(msg) {
-		console.log(msg);
 		if (gdbDebugger.lastCommand === 'run') {
 			if (msg.indexOf('Starting program:') === 0) return;
+			if (msg.trim().indexOf('Breakpoint') !== 0){
+				interface.onGenericError("No Breakpoint Set.");
+				return;
+			}
 			var msgLines = msg.split('\n');
 			var currentRunningLineNumber = msgLines[2].split('\t')[0];
 			interface.showCurrentRunningLine(currentRunningLineNumber);
@@ -56,7 +59,6 @@ var spawnDebugTask = function(fileName) {
 	});
 
 	gdbDebugger.debugTask.stderr.on('data', function(errorMsg) {
-		console.log(errorMsg)
 		if(gdbDebugger.lastCommand === 'print'){
 			interface.onExpressionrError(errorMsg);
 			return;

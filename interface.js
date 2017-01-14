@@ -17,6 +17,12 @@ interface.onFullCode = function(fullCodeContent) {
 	jQuery('#codeWindow').html(tbody);
 };
 
+interface.onGenericError =  function(errorMsg){
+	var error = jQuery('#error');
+	error.find('p').text(errorMsg);
+	error.show();
+}
+
 interface.showCurrentRunningLine = function(currentRunningLineNumber) {
 	jQuery('.currentLine').removeClass('currentLine');
 	var currentLine = jQuery('td[data-line="' + currentRunningLineNumber + '"').parent();
@@ -46,7 +52,7 @@ interface.init = function() {
 	var loadSymbolsFromFile = function() {
 		jQuery('#loadFile').hide();
 		jQuery('#main').show();
-		var fileName = jQuery('#exeFile')[0].value;
+		var fileName = jQuery('#exeFile input')[0].value;
 		fileName = fileName.replace(/\\/g, '/').replace(/ /g, '\\ ');
 		gdbDebugger.loadSymboles(fileName);
 	};

@@ -28,6 +28,10 @@ var showCurrentRunningLineIfPresent = function(msg, breakLineNumber, breakFromEn
 		breakLineNumber = msgLines.length - breakLineNumber;
 	}
 	var currentRunningLineNumber = msgLines[breakLineNumber].split('\t')[0];
+	if (isNaN(currentRunningLineNumber)) {
+		interface.onDebugFinished();
+		return;
+	};
 	interface.showCurrentRunningLine(currentRunningLineNumber);
 }
 
@@ -39,9 +43,7 @@ var spawnDebugTask = function(fileName) {
 
 	gdbDebugger.debugTask.stdout.on('data', function(msg) {
 		if(msg.trim() === '(gdb)') return;
-		alert(msg)
 		if (gdbDebugger.lastCommand === 'run') {
-			debugger;
 			if (msg.indexOf('Starting program:') === 0) return;
 			if (msg.trim().indexOf('Breakpoint') !== 0){
 				interface.onGenericError("Please set atleast one Breakpoint, before running the debugger");
@@ -70,7 +72,6 @@ var spawnDebugTask = function(fileName) {
 			interface.onGenericError(NOT_BEING_RUN_ERROR_MSG);
 			return;
 		};
-		alert(errorMsg);
 		if(gdbDebugger.lastCommand === 'print'){
 			interface.onExpressionrError(errorMsg);
 			return;

@@ -27,6 +27,12 @@ interface.showCurrentRunningLine = function(currentRunningLineNumber) {
 	jQuery('.currentLine').removeClass('currentLine');
 	var currentLine = jQuery('td[data-line="' + currentRunningLineNumber + '"').parent();
 	currentLine.addClass('currentLine');
+	jQuery('#evaluate').prop('disabled',false);
+};
+
+interface.onDebugFinished = function() {
+	jQuery('.currentLine').removeClass('currentLine');
+	jQuery('#evaluate').prop('disabled', true);
 };
 
 interface.onExpressionrResult = function(result) {
@@ -46,7 +52,6 @@ interface.onExpressionrError = function(errorMsg) {
 interface.onQuitProcessed = function(){
 	gui.Window.get().close();
 }
-
 
 interface.init = function() {
 	var loadSymbolsFromFile = function() {
